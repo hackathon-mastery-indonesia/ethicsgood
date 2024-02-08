@@ -9,7 +9,7 @@ export async function POST(request: Request){
     question: '${question}'.
     userAnswer:'${userAnswer}'
     The user is sharing an opinion about the question. 
-    Assume you are an health assistant, then respond whether the user's opinion is appropriate or not regarding the question.
+    Assume you are an etiquette or ethics assistant, then respond whether the user's opinion is appropriate or not regarding the question.
     answer:
     `
     const chat = await axios.post(

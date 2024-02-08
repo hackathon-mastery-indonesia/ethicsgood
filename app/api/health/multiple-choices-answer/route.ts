@@ -14,7 +14,7 @@ export async function POST(request :Request){
         choices: '${choiceList}',
         System True Choice: '${trueChoice}'
         User Choice: '${userAnswer}'
-        Pretend you are health instructor  who is correcting multiple choices user's answer.
+        Pretend you are etiquette and ethics instructor  who is correcting multiple choices user's answer.
         Do not include any explanations, only provide a raw JSON response  following this format without deviation and dont allow unnecessary trailing commas and dont allow comments.
         {
           "is_answer_true": boolean,

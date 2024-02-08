@@ -145,16 +145,32 @@ ALTER COLUMN categories_embedding DROP NOT NULL;
 CREATE TABLE ARTICLE_EMBEDDING(
   id BIGSERIAL PRIMARY KEY,
   artikel_id BIGINT NOT NULL,
-  title_embedding vector NOT NULL,
+  embedding vector NOT NULL,
   problem_embedding vector NOT NULL,
   categories_embedding vector NOT NULL,
   FOREIGN KEY(artikel_id) REFERENCES ARTICLE(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 `
+const str6 = `
+ALTER TABLE ARTICLE_EMBEDDING
+  RENAME COLUMN title_embedding TO embedding;
+`
+const str7 = `
+ALTER TABLE ARTICLE
+ALTER COLUMN thumbnail SET DEFAULT '';
+`
+const str8 = `
+CREATE TABLE ARTICLE_CHAT_EMBEDDING(
+  id SERIAL PRIMARY KEY,
+  user_identifier UUID NOT NULL,
+  message TEXT NOT NULL,
+  embedding vector NOT NULL,
+  article_id BIGINT NOT NULL
+); 
+`
 
 const task = async () => {
-  const res = await query(`SELECT * FROM ARTICLE_EMBEDDING
-  `)
+  const res = await query(`ALTER TABLE ARTICLE_CHAT_EMBEDDING ADD COLUMN article_id BIGINT NOT NULL`)
   console.log(res)
 }
 

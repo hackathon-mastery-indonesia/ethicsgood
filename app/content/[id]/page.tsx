@@ -8,6 +8,8 @@ import QuickTest from "@/app/component/QuickTest/QuickTest";
 import Loading from "@/app/component/Loading/LoadingIcon";
 import EssayComponent from "@/app/component/Essay/Essay";
 import MultipleChoicesComponent from "@/app/component/MultipleQuestion/MultipleQuestion";
+import AssistantPopUp from "@/app/component/AssistantChat/Assistant";
+import { v4 as uuidv4 } from 'uuid';
 
 function tryParseInt(value: string): number | null {
     try {
@@ -50,15 +52,22 @@ const ContentPage : React.FC<ContentPageProps> = ({currentSection, id}) => {
     const [currentQuiz, setCurrentQuiz] = useState<any>(null)
     const [quizSetup, setQuizSetup] = useState<QuizSetup|null>(null)
     const isReadyToStartQuiz = selectedStudyCase != '' && selectedAnswerType != ''
+    const [thumbnail, setThumbnail] = useState<string | null | undefined>(null)
+    const [intervals, setIntervals] = useState<any[]>([]);
     const router = useRouter()
-    console.log(isOnQuiz)
-    console.log(quizSetup)
+    const [userId, setUserId] = useState<string>(uuidv4());
+
     useEffect(()=>{
-        fetchArticle()
+        setIsLoading(true)
+        fetchArticle().then(res =>{
+            setIsLoading(false)
+        })
     },[])
 
+
+
     const fetchArticle = async () => {
-        setIsLoading(true)
+        
         const articleId = tryParseInt(id)
         if(articleId == null){
             router.push('/undefined')
@@ -69,23 +78,37 @@ const ContentPage : React.FC<ContentPageProps> = ({currentSection, id}) => {
         })
         const data = res.data
         const rows = data.result.rows
+        console.log(rows)
+        const thumbnail = rows[0].thumbnail
+        setThumbnail(thumbnail)
         const content = JSON.parse(rows[0].json)
-        console.log(content)
         setContent(content)
-        setIsLoading(false)
     }
+
+
     
     return (
         <main className="flex min-h-screen overflow-y-auto w-full flex-col items-center justify-start  pt-16 md:pt-12 pb-10 bg-white px-4">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+
       </div>
+    <AssistantPopUp props={{
+        articleContext: '',
+        userId: userId
+    }}/>
       {
         isLoading && <Loading/>
       }
       <div className="w-full flex flex-col max-w-5xl mx-auto">
+        
         {
             currentSection == 'Content' && content != null &&
-            <div className="w-full  flex flex-col max-w-5xl mx-auto">
+            <div className="w-full  flex flex-col max-w-3xl mx-auto">
+                {
+                    thumbnail && <div className="w-full h-auto mb-4 ">
+                    <img src={thumbnail} className="w-full h-auto rounded-md aspect-video object-cover" alt="" />
+                </div>
+                }
                 <h1 className="text-blue-600 text-2xl md:text-4xl  font-bold">
                     {content.article_title}
                 </h1>
@@ -100,11 +123,14 @@ const ContentPage : React.FC<ContentPageProps> = ({currentSection, id}) => {
                 <div className="flex w-full mt-4 text-justify text-base text-blue-950">
                     {content.introduction}
                 </div>
+                <div className="flex w-full mt-4 text-justify text-base text-blue-950">
+                    {content.explanation}
+                </div>
                 <div className="flex w-full mt-4 mb-2 text-justify text-xl md:text-2xl font-bold text-blue-600">
                     {'TIPS'}
                 </div>
                 <div className="flex flex-col w-full mb-2">
-                    {content.solutions.map((solution:any, index: number) =>{
+                    {content.tips.map((solution:any, index: number) =>{
                         return <div key={`${solution.title} ${index} solution`} className="flex flex-col w-full mb-4">
                             <h1 className="text-lg md:text-xl font-bold text-blue-400 mb-2">{index+1}. {solution.title}</h1>
                             <p className="text-black">{solution.description}</p>
@@ -123,6 +149,9 @@ const ContentPage : React.FC<ContentPageProps> = ({currentSection, id}) => {
                         </div>
                     })}
                 </div>
+                <div className="flex w-full mt-4 mb-2 text-justify text-xl md:text-2xl font-bold text-blue-600">
+                    {'CONCLUSION'}
+                </div>
                 <div className="flex flex-col w-full mb-2 text-blue-950">
                     {content.conclusion}
                 </div>
@@ -135,7 +164,7 @@ const ContentPage : React.FC<ContentPageProps> = ({currentSection, id}) => {
             </div>
         }
         {
-            currentSection == 'Study Case Assesment' &&
+            currentSection == 'Assesment' &&
             <div className="w-full flex flex-col max-w-5xl mx-auto">
                 {
                     !isOnQuiz && <div className="w-full flex flex-col">

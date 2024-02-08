@@ -13,7 +13,8 @@ type ArticlePreviewData = {
     id: string,
     title: string,
     json: any,
-    categories: Array<string>
+    categories: Array<string>,
+    thumbnail: any
 }
 
 function EthicsModule() {
@@ -61,7 +62,8 @@ function EthicsModule() {
                     id:data.id,
                     json: JSON.parse(data.json),
                     title:data.title,
-                    categories:[data.category_name]
+                    categories:[data.category_name],
+                    thumbnail: data.thumbnail
                 }
             }
             else{
@@ -78,7 +80,7 @@ function EthicsModule() {
     
    
     try {
-        const queryString = `SELECT distinct a.id, a.title, a.json, c.name as category_name FROM ARTICLE a JOIN 
+        const queryString = `SELECT distinct a.id, a.title, a.json, c.name as category_name, a.thumbnail FROM ARTICLE a JOIN 
     ARTICLE_ARTICLE_CATEGORY aac ON a.id =  aac.articleId JOIN ARTICLE_CATEGORY c ON aac.categoryId = c.id;`
     const res = await axios.post('/api/db/query', {
         queryString: queryString
@@ -94,7 +96,8 @@ function EthicsModule() {
                 id:data.id,
                 json: JSON.parse(data.json),
                 title:data.title,
-                categories:[data.category_name]
+                categories:[data.category_name],
+                thumbnail: data.thumbnail
             }
         }
         else{
@@ -143,7 +146,7 @@ function EthicsModule() {
                     Array.from(categorySet).map((category,index)=>{
                         return <div onClick={()=>{
                             setSelectedCategory(category)
-                        }} key={`category-${category}-${index}`} className={`${selectedCategory == category? 'bg-blue-600': 'bg-blue-300'} ${selectedCategory == category? 'text-white': 'text-black'} font-bold flex-auto flex-shrink-0 px-4 py-2  text-center rounded-md`}>{category}</div>
+                        }} key={`category-${category}-${index}`} className={`${selectedCategory == category? 'bg-blue-600': 'bg-blue-300'} ${selectedCategory == category? 'text-white': 'text-black'} font-bold flex-none px-4 py-2  text-center rounded-md`}>{category}</div>
                     })
                 }
             </div>
@@ -155,7 +158,7 @@ function EthicsModule() {
                         
                         <div className="grid grid-cols-12 gap-x-3">
                             <div className="flex w-full h-min lg:col-span-4 md:col-span-6 col-span-12 ">
-                                <img className="w-full rounded-md h-auto " src="https://static.vecteezy.com/system/resources/thumbnails/022/385/025/small/a-cute-surprised-black-haired-anime-girl-under-the-blooming-sakura-ai-generated-photo.jpg" alt="" />
+                                <img className="w-full rounded-md h-auto " src={article.thumbnail? article.thumbnail : ''} alt="" />
                             </div>
                             <div className="flex flex-col lg:col-span-8 md:col-span-6 col-span-12">
                             <div className="flex items-center flex-wrap space-x-2 space-y-2 -ml-2 mb-2">

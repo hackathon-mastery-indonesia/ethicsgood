@@ -28,9 +28,9 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({onSidebarChange}) => {
             icon:  <BiBookReader title='Content'/>
         },
         {
-            title: 'Study Case Assesment',
+            title: 'Assesment',
             href:'#',
-            icon: <MdArticle title='Study Case'/>
+            icon: <MdArticle title='Assesment'/>
         },
     ]
     const handleNavigation = (title: string, path: string) => {
@@ -42,7 +42,7 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({onSidebarChange}) => {
   
           <div className={`flex w-full ${isSidebarOpen? 'justify-between': 'justify-center'} items-center mb-4`}>
           {
-              isSidebarOpen && <a href='/' className=' text-white text-xl md:text-3xl font-bold whitespace-break-spaces break-words'>WellnessAI</a>
+              isSidebarOpen && <a href='/' className=' text-white text-xl md:text-3xl font-bold whitespace-break-spaces break-words'>EthicsGood</a>
           }
           <div onClick={toggleSidebar} className='ml-2 text-white text-lg'>
               {

@@ -23,13 +23,13 @@ function SearchPage(){
       </div>
       <div className="w-full flex flex-col max-w-3xl mx-auto">
       <div className="flex flex-col w-full mx-auto ">
-          <h1 className="text-black text-3xl font-bold text-left mb-4">Prompting to Explore <span className="text-blue-500">Your Desired Ethics Guidelines</span></h1>
+          <h1 className="text-black text-3xl font-bold text-left mb-4">Prompting to Explore Recommended Ethics Guides <span className="text-blue-500">You Wish For</span></h1>
           
           <textarea
           ref={textRef}
           maxLength={300}
           className="w-full p-4 border-4 text-black rounded-md min-h-48 focus:outline-none  focus:border-blue-400 border-blue-300"
-          placeholder="Type the health issues, situations, topics, or questions about everyday health you'd like to explore..."
+          placeholder="Type the ethic or etiquette issues, situations, topics, or questions about everyday health you'd like to explore..."
     />
           
           <div className="flex w-full  items-center justify-end">
@@ -66,17 +66,17 @@ function SearchPage(){
             <Toggle
             options={['Issue', 'Topic', 'Situation', 'Question']}
             onChange={handleToggleChange}
-            defaultOption="Health Issue"
+            defaultOption="Issue"
             />
             <textarea
           maxLength={300}
           readOnly
           className="w-full p-4 border-4 mt-4 text-black rounded-md min-h-48 border-gray-300"
-          value={selectedToggle == 'Issue'? 'Oh man, its like this I ve got asthma and working in this city with crazy pollution is a real struggle. Any advice on how to protect myself from these smoky situations? Maybe some tricks or tips to keep working without feeling all choked up?' : 
+          value={selectedToggle == 'Issue'? `I saw a viral video on social media where some students playfully hid their teacher's car keys and laughed at the teacher. What ethics should I follow as a student?` : 
           selectedToggle == 'Topic' ? 
-          `"So, here's the deal. I'm figuring out how to maintain mental health amidst a hectic job. Any suggestions or daily tricks to pull off?`: 
-          selectedToggle == 'Situation'? 'Ouch! My bodys all knotted up from sitting and coding all day for a year. Help me to create  healthier life as a programmer' :
-           'Are there specific diets that can help with autoimmune diseases?'}
+          `The current viral trend among some Gen Zs about ethics is quite amusing. Could you explain to me why such ethics should be avoided?`: 
+          selectedToggle == 'Situation'? 'How to chat with professors appropriately and ethically?' :
+           'What is morality and what is its importance in society?'}
             />
             </div>
       </div>

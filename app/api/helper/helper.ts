@@ -1,6 +1,45 @@
 import axios from "axios"
 import query from "../db/query"
 
+const getImage = async (task : string) : Promise<string> => {
+  const headers =  {
+    'Content-Type': 'application/json',
+    'api-key': process.env['AZURE_OPENAI_API_KEY']
+  }
+   const chat = await axios.post(
+    process.env['AZURE_OPENAI_DALLE_URL']  == undefined ? 
+    'ERR'
+    : process.env['AZURE_OPENAI_DALLE_URL'] 
+
+    ,
+    { 
+        "prompt": task,
+        "n": 1,
+        "size": '1024x1024',
+        
+      },
+        {
+            headers: headers,
+          }
+    )
+    console.log(chat.data.id)
+    const operationLocation  = chat.headers['operation-location'];
+  
+    let status = "";
+    while (status !== "succeeded" && status !== "failed") {
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Sleep for 1 second
+        const response = await axios.get(operationLocation, { headers });
+        status = response.data.status;
+        console.log(status)
+        if (status === "succeeded") {
+            const image_url = response.data.result.data[0].url;
+            return image_url
+        }
+    }
+    console.log('yeeeee')
+    return 'https://static.vecteezy.com/system/resources/thumbnails/022/385/025/small/a-cute-surprised-black-haired-anime-girl-under-the-blooming-sakura-ai-generated-photo.jpg'
+}
+
 const getArticleJSONString = async (task : string) : Promise<string> => {
     const chat = await axios.post(
       process.env['AZURE_OPENAI_API_URL']  == undefined ? 
@@ -134,4 +173,4 @@ const getArticleJSONString = async (task : string) : Promise<string> => {
     return str
   }
 
-  export {getArticleJSONString, getEmbedding, addArticle}
+  export {getArticleJSONString, getEmbedding, addArticle, getImage}

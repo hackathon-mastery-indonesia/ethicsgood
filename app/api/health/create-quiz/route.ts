@@ -13,7 +13,8 @@ export async function POST(request :Request){
             task = `
         problem: '${problem}'.
         Pretend you are automatic multiple choice quiz generator with a focus on
-        creating complex and meaningful quiz for health based on user situations provided in the problem.
+        creating complex and meaningful quiz for ethic and etiquette based on user situations provided in the problem to improve 
+        to improve user understanding of ethics based on user situations.
         Do not include any explanations, only provide a raw JSON response  following this format without deviation and dont allow unnecessary trailing commas and dont allow comments.
         {
           "question_list":non empty list with minimal 6 elements inside it [{"question":string, "choice_list": non empty list of string with minimal four choices inside it, "true_choice": correct answer based on the given list of choices}], 
@@ -24,7 +25,8 @@ export async function POST(request :Request){
             task = `
         problem: '${problem}'.
         Pretend you are automatic essay quiz generator with a focus on
-        creating complex and meaningful quiz for health based on user situations provided in the problem.
+        creating complex and meaningful quiz for ethic and etiquette based on user situations provided in the problem to improve 
+        to improve user understanding of ethics based on user situations.
         Do not include any explanations, only provide a raw JSON response  following this format without deviation and dont allow unnecessary trailing commas and dont allow comments.
         {
           "question_list":non empty list of string with minimal 8 questions inside it
