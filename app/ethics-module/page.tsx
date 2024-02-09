@@ -1,6 +1,7 @@
 'use client'
 
 import axios from "axios";
+import { Suspense } from 'react'
 import SidebarLayout from "../layout/SidebarLayout";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from 'next/navigation';
@@ -203,6 +204,6 @@ function EthicsModule() {
 
 export default function Page (){
   return <SidebarLayout>
-    <EthicsModule/>
+    <Suspense><EthicsModule/></Suspense>
   </SidebarLayout>
 }
