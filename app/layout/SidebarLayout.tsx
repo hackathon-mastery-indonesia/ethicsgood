@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import Sidebar, { ArticleSidebar } from "../component/Sidebar/Sidebar";
 import { SidebarProvider, useSidebar } from "../context/SidebarContext";
