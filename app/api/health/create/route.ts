@@ -34,10 +34,10 @@ export async function POST(request :Request){
         const imageTask = `
         article title: '${articleJSON['article_title']}'.
         Assuming you are a 2d anime thumbnail  illustrator for an image generator model. Your task is to prompt a 2d anime scene by 
-        illustrate appearance, face, eye, expression, and gender for the character (max 1 person) and suitable background which suited with the article title so that the image generator model can produce better thumbnail.
+        illustrate appearance, face, eye, mouth, expression, and gender for the character (max 1 person) and suitable background which suited with the article title so that the image generator model can produce better thumbnail.
         Do not include any explanations, only provide a raw string Response following this format without deviation and 
         dont allow unnecessary trailing commas and dont allow comments. 
-        The string response in (just a a paragraph illustration not more 5 sentences):
+        The string response in (just a a paragraph illustration not more 6 sentences):
         `
        const rawImageTaskPrompt = await getArticleJSONString(imageTask)
       //  console.log(imagePromptJSON)
