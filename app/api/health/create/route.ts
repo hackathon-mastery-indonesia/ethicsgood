@@ -34,7 +34,7 @@ export async function POST(request :Request){
         const imageTask = `
         article title: '${articleJSON['article_title']}'.
         Assuming you are a 2d anime thumbnail  illustrator for an image generator model. Your task is to prompt a 2d anime scene by 
-        detailed illustrate appearance, face, expression, and gender for the character (max 1 person) and suitable background which suited with the article title so that the image generator model can produce better thumbnail.
+        illustrate appearance, face, eye, expression, and gender for the character (max 1 person) and suitable background which suited with the article title so that the image generator model can produce better thumbnail.
         Do not include any explanations, only provide a raw string Response following this format without deviation and 
         dont allow unnecessary trailing commas and dont allow comments. 
         The string response in (just a a paragraph illustration not more 5 sentences):
@@ -57,7 +57,7 @@ export async function POST(request :Request){
         });
         await new Promise<void>((resolve, reject)=>{
             try {
-              getImage(`anime style without eyes of ${rawImageTaskPrompt.replace(/(\n|\r|\r\n){2,}/g, "").replace(/\s{2,}/g, " ")}`).then((res)=>{
+              getImage(`Japanese anime style image of ${rawImageTaskPrompt.replace(/(\n|\r|\r\n){2,}/g, "").replace(/\s{2,}/g, " ")}`).then((res)=>{
                 query(`UPDATE ARTICLE SET thumbnail = '${res}' WHERE id = '${id}' `)
                 resolve()
               })
