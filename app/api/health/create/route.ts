@@ -12,7 +12,7 @@ export async function POST(request :Request){
         problem: '${prompt}'.
         Pretend you are automatic article generator with a focus on
         creating complex and meaningful solutions or tips for ethics and social etiquette based on user situations or questions provided in the problem.
-        Do not include any explanations, only provide a raw JSON response  following this format without deviation and dont allow unnecessary trailing commas and dont allow comments.
+        Do not include any explanations, only provide a raw JSON response  following this format without deviation and dont allow unnecessary trailing commas and dont allow comments and dont allow single quote and dont allow multi quote.
         {
           "article_title": string,
           "categories": list of string that relevant with the problem (max 2),
@@ -28,21 +28,19 @@ export async function POST(request :Request){
         
         const rawArticleJSON = await getArticleJSONString(task)
         const articleJSON = await JSON.parse(rawArticleJSON.trim())
+        console.log(articleJSON)
         const id = await addArticle(articleJSON)
+        console.log('YESSS')
         const imageTask = `
         article title: '${articleJSON['article_title']}'.
-        Assuming you are a japanese article anime thumbnail  illustrator for an image generator model. Your task is to prompt a Japanese anime scene by 
-        very detailed illustrate faces,  eyes,   appearances,  genders, and expressions for each character and suitable background which suited with the article title so that the image generator model can produce better thumbnail.
-        Do not include any explanations, only provide a raw JSON Response following this format without deviation and 
+        Assuming you are a 2d anime thumbnail  illustrator for an image generator model. Your task is to prompt a 2d anime scene by 
+        detailed illustrate appearance, face, expression, and gender for the character (max 1 person) and suitable background which suited with the article title so that the image generator model can produce better thumbnail.
+        Do not include any explanations, only provide a raw string Response following this format without deviation and 
         dont allow unnecessary trailing commas and dont allow comments. 
-        {
-          "illustration": string 
-        }
-        The JSON response:
+        The string response in (just a a paragraph illustration not more 5 sentences):
         `
-        const imagePrompt = await getArticleJSONString(imageTask)
-        const imagePromptJSON = await JSON.parse(imagePrompt.trim())
-        console.log(imagePromptJSON)
+       const rawImageTaskPrompt = await getArticleJSONString(imageTask)
+      //  console.log(imagePromptJSON)
         ///////////////////////////////////////// CONCURRENT ///////////////////////////////////////////////////////
         Promise.all([
           getEmbedding(`{title:${articleJSON['article_title']}, content:${rawArticleJSON}`),
@@ -59,7 +57,7 @@ export async function POST(request :Request){
         });
         await new Promise<void>((resolve, reject)=>{
             try {
-              getImage(`japanese anime style image, ${imagePromptJSON['illustration']}`).then((res)=>{
+              getImage(`anime style of ${rawImageTaskPrompt.replace(/(\n|\r|\r\n){2,}/g, "").replace(/\s{2,}/g, " ")}`).then((res)=>{
                 query(`UPDATE ARTICLE SET thumbnail = '${res}' WHERE id = '${id}' `)
                 resolve()
               })

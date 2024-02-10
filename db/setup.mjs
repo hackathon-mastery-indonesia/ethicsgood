@@ -170,7 +170,7 @@ CREATE TABLE ARTICLE_CHAT_EMBEDDING(
 `
 
 const task = async () => {
-  const res = await query(`ALTER TABLE ARTICLE_CHAT_EMBEDDING ADD COLUMN article_id BIGINT NOT NULL`)
+  const res = await query(`DELETE FROM ARTICLE; DELETE FROM ARTICLE_CATEGORY; DELETE FROM ARTICLE_EMBEDDING`)
   console.log(res)
 }
 

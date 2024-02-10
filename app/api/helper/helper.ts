@@ -1,6 +1,8 @@
 import axios from "axios"
 import query from "../db/query"
 
+
+
 const getImage = async (task : string) : Promise<string> => {
   const headers =  {
     'Content-Type': 'application/json',
@@ -15,7 +17,7 @@ const getImage = async (task : string) : Promise<string> => {
     { 
         "prompt": task,
         "n": 1,
-        "size": '1024x1024',
+        "size": '512x512',
         
       },
         {
@@ -39,6 +41,8 @@ const getImage = async (task : string) : Promise<string> => {
     console.log('yeeeee')
     return 'https://static.vecteezy.com/system/resources/thumbnails/022/385/025/small/a-cute-surprised-black-haired-anime-girl-under-the-blooming-sakura-ai-generated-photo.jpg'
 }
+
+
 
 const getArticleJSONString = async (task : string) : Promise<string> => {
     const chat = await axios.post(
