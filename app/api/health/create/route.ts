@@ -57,7 +57,7 @@ export async function POST(request :Request){
         });
         await new Promise<void>((resolve, reject)=>{
             try {
-              getImage(`anime style of ${rawImageTaskPrompt.replace(/(\n|\r|\r\n){2,}/g, "").replace(/\s{2,}/g, " ")}`).then((res)=>{
+              getImage(`anime style without eyes of ${rawImageTaskPrompt.replace(/(\n|\r|\r\n){2,}/g, "").replace(/\s{2,}/g, " ")}`).then((res)=>{
                 query(`UPDATE ARTICLE SET thumbnail = '${res}' WHERE id = '${id}' `)
                 resolve()
               })
