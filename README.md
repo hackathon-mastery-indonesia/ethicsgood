@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# EthicsGood
 
-## Getting Started
+## Inspiration
+I was inspired to create this project after noticing that many young generations in my country lack ethics. One of the issues in my country is the neglect of ethics nowadays. Through this project, I aim to provide wide-ranging ethics education by harnessing AI.
 
-First, run the development server:
+## What it does
+EthicsGood is an innovative interactive platform designed to serve as your personal guide to ethics and etiquette, powered by advanced artificial intelligence technology. Whether you are navigating professional settings, social interactions, or ethical dilemmas, EthicsGood is here to provide insightful guidance every step of the way. Additionally, by participating in interactive ethics quizzes, you'll strengthen your grasp of ethical concepts and refine your ability to apply them effectively in real-world situations, whether in personal relationships, social interactions, or civic engagements.
 
-```bash
+## How we built it
+I utilized Azure, Next.js, and PostgreSQL to complete this project.
+
+## Challenges we ran into
+We faced performance issues due to the complexity of backend processing and encountered perplexing prompt engineering challenges.
+
+## Accomplishments that we're proud of
+Creating educational content using AI.
+
+## What we learned
+Learning to use contemporary AI tools.
+
+## What's next for EthicsGood
+The project needs to add a video conference feature with ethics mentors and a feature for scenario-based ethics cases between users and AI. However, due to time constraints, we have not yet implemented these features.
+
+## How to Run
+To access the deployed web application from this repository, simply open [https://ethicsgood.up.railway.app/](https://ethicsgood.up.railway.app/) in your web browser.
+
+Alternatively, if you want to run the project locally, follow these steps:
+1. Clone this repository to your local machine.
+2. Navigate to the root directory of the project in your terminal.
+3. Run the following command:
+
+npm install
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
