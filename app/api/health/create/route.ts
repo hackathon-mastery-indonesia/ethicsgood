@@ -84,8 +84,8 @@ export async function POST(request :Request){
           // Kesalahan lainnya
           console.error('Error during request setup:', error.message);
         }
-        return NextResponse.json({'message':'yoi', 'status': 'FAILED'},{
-          status: 400,
+        return NextResponse.json({ 'status': 'FAILED'},{
+          status: 500,
         });
       }
 }

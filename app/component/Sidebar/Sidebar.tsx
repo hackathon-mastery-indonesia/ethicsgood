@@ -19,7 +19,7 @@ type ArticleSidebarProps = {
 const ArticleSidebar: React.FC<ArticleSidebarProps> = ({onSidebarChange}) => {
     const { isSidebarOpen, toggleSidebar, currentPageTitle, setCurrentPageTitle } = useSidebar();
     useEffect(()=>{
-        setCurrentPageTitle('Konten')
+        setCurrentPageTitle('Content')
     },[])
     const content: Array<SidebarContent> = [
         {
