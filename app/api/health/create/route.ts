@@ -61,7 +61,7 @@ export async function POST(request :Request){
               getImage(`Japanese anime style image of ${rawImageTaskPrompt.replace(/(\n|\r|\r\n){2,}/g, "").replace(/\s{2,}/g, " ")}`).then(async (res)=>{
                 const blob: Blob = await getImageBlobFromURL(res);
                 const base64 = await  blobToBase64(blob);
-                query(`UPDATE ARTICLE SET thumbnail = '${base64}' WHERE id = '${id}' `)
+                await query(`UPDATE ARTICLE SET thumbnail = '${base64}' WHERE id = '${id}' `)
                 resolve()
               })
             } catch (error) {
