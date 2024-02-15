@@ -159,7 +159,7 @@ function EthicsModule() {
                         
                         <div className="grid grid-cols-12 gap-x-3">
                             <div className="flex w-full h-min lg:col-span-4 md:col-span-6 col-span-12 ">
-                                <img className="w-full rounded-md h-auto " src={article.thumbnail? article.thumbnail : ''} alt="" />
+                                <img className="w-full rounded-md h-auto " src={'data:image/png;base64,' + article.thumbnail} alt="" />
                             </div>
                             <div className="flex flex-col lg:col-span-8 md:col-span-6 col-span-12">
                             <div className="flex items-center flex-wrap space-x-2 space-y-2 -ml-2 mb-2">
