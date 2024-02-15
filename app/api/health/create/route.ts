@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import axios, { AxiosError } from "axios";
 import { getArticleJSONString, getEmbedding, addArticle, getImage } from "../../helper/helper";
 import query from "../../db/query";
+import { blobToBase64, getImageBlobFromURL } from "@/app/util/ImageUtil";
 
 
 export async function POST(request :Request){
@@ -57,8 +58,10 @@ export async function POST(request :Request){
         });
         await new Promise<void>((resolve, reject)=>{
             try {
-              getImage(`Japanese anime style image of ${rawImageTaskPrompt.replace(/(\n|\r|\r\n){2,}/g, "").replace(/\s{2,}/g, " ")}`).then((res)=>{
-                query(`UPDATE ARTICLE SET thumbnail = '${res}' WHERE id = '${id}' `)
+              getImage(`Japanese anime style image of ${rawImageTaskPrompt.replace(/(\n|\r|\r\n){2,}/g, "").replace(/\s{2,}/g, " ")}`).then(async (res)=>{
+                const blob: Blob = await getImageBlobFromURL(res);
+                const base64 = await  blobToBase64(blob);
+                query(`UPDATE ARTICLE SET thumbnail = '${base64}' WHERE id = '${id}' `)
                 resolve()
               })
             } catch (error) {

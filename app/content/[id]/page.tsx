@@ -10,6 +10,7 @@ import EssayComponent from "@/app/component/Essay/Essay";
 import MultipleChoicesComponent from "@/app/component/MultipleQuestion/MultipleQuestion";
 import AssistantPopUp from "@/app/component/AssistantChat/Assistant";
 import { v4 as uuidv4 } from 'uuid';
+import { fetchImage } from "@/app/util/ImageUtil";
 
 function tryParseInt(value: string): number | null {
     try {
@@ -56,11 +57,16 @@ const ContentPage : React.FC<ContentPageProps> = ({currentSection, id}) => {
     const [intervals, setIntervals] = useState<any[]>([]);
     const router = useRouter()
     const [userId, setUserId] = useState<string>(uuidv4());
+    const headers =  {
+        'Content-Type': 'application/json',
+        'api-key': process.env['NEXT_PUBLIC_AZURE_OPENAI_API_KEY']
+      }
 
     useEffect(()=>{
         setIsLoading(true)
         fetchArticle().then(res =>{
             setIsLoading(false)
+            
         })
     },[])
 
@@ -85,16 +91,16 @@ const ContentPage : React.FC<ContentPageProps> = ({currentSection, id}) => {
         setContent(content)
     }
 
-
     
     return (
         <main className="flex min-h-screen overflow-y-auto w-full flex-col items-center justify-start  pt-16 md:pt-12 pb-10 bg-white px-4">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
 
       </div>
-    <div className="hidden">
+    <div className="">
     <AssistantPopUp props={{
-        articleContext: '',
+        articleId: tryParseInt(id),
+        articleContext: content,
         userId: userId
     }}/>
     </div>
@@ -108,7 +114,7 @@ const ContentPage : React.FC<ContentPageProps> = ({currentSection, id}) => {
             <div className="w-full  flex flex-col max-w-3xl mx-auto">
                 {
                     thumbnail && <div className="w-full h-auto mb-4 ">
-                    <img src={thumbnail} className="w-full h-auto rounded-md aspect-video object-cover" alt="" />
+                    <img src={'data:image/png;base64,' + thumbnail} className="w-full h-auto rounded-md aspect-video object-cover" alt="" />
                 </div>
                 }
                 <h1 className="text-blue-600 text-2xl md:text-4xl  font-bold">
