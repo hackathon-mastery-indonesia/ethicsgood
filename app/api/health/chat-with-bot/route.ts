@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import query from "../../db/query"
 import { getArticleJSONString, getEmbedding } from "../../helper/helper"
-import { createEmbeddingChat } from "../add-chat/route"
+import { createEmbeddingChat } from "../add-chat/chat"
 
 export async function POST(request :Request){
     try {
